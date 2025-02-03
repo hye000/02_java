@@ -1,5 +1,6 @@
 package com.practice;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ArrayPractice {
@@ -13,13 +14,13 @@ public class ArrayPractice {
 //		practice6();
 //		practice7();
 //		practice8();
-//		practice9();**
+//		practice9();
 //		practice10();
 //		practice11();
 //		practice12();
-//		practice13();	//중복x
-//		practice14();	//중복x
-//		practice15();	//중복x
+//		practice13();	
+//		practice14();	
+//		practice15();	
 		practice16();
 		
 
@@ -277,7 +278,14 @@ public class ArrayPractice {
 		
 		for(int i=0; i<arr.length; i++) {
 			arr[i] = (int)(Math.random()*10 + 1);
-			System.out.print(arr[i] + " ");
+			for(int j = 0; j < i; j++) {
+	            if(arr[i] == arr[j]) {
+	                i--;
+	            }
+	        }
+		}
+		for(int i=0; i<arr.length; i++) {
+			System.out.print(arr[i] + " ");			
 		}
 	}
 	
@@ -285,10 +293,21 @@ public class ArrayPractice {
 		// 로또 번호 자동 생성기 프로그램을 작성하는데 중복 값 없이 오름차순으로 정렬하여 출력하세요.
 		
 		int[] arr = new int[6];
+		int sort = 0;
 		
 		for(int i=0; i<arr.length; i++) {
-			arr[i] = (int)(Math.random()*40 + 1);
-			System.out.print(arr[i] + " ");
+			arr[i] = (int)(Math.random()*45 + 1);
+			for(int j=0; j<i; j++) {
+				if(arr[i] < arr[j]) {
+					sort = arr[i];
+					arr[i] = arr[j];
+					arr[j] = sort;
+				}
+			}
+		}
+		
+		for(int i=0; i<arr.length; i++) {
+			System.out.print(arr[i] + " ");			
 		}
 	}
 	
@@ -306,10 +325,19 @@ public class ArrayPractice {
 			chArr[i] = str.charAt(i);
 			System.out.print(chArr[i]);
 			if(i<chArr.length-1) {
+				System.out.printf("\n문자 개수 : ", chArr.length);
 				System.out.print(", ");
 			}
 		}
-		System.out.println("\n문자 개수 : " + chArr.length);
+		
+//		for(int i=0; i<chArr.length; i++) {
+//			for(int j=0; j<i; j++) {
+//				if(chArr[i] == chArr[j]) {
+//					i-- ;
+//					break;
+//				}
+//			}
+//		}
 	}
 	
 	public static void practice16() {
@@ -326,5 +354,35 @@ public class ArrayPractice {
 			System.out.printf("%d번째 문자열 : ", i+1);
 			strArr[i] = sc.nextLine();
 		}
+		
+		while(true) {
+			System.out.print("더 값을 입력하시겠습니까?(Y/N) : ");
+			char answer = sc.next().charAt(0);
+			
+			if(answer == 'y' || answer == 'Y') {
+				System.out.print("더 입력하고 싶은 개수 : ");
+				int num2 = sc.nextInt();
+				sc.nextLine();
+				
+				String[] strArr2 = new String[strArr.length+num2];
+				System.arraycopy(strArr, 0, strArr2, 0, strArr.length);
+				
+				for(int i=strArr.length; i<strArr2.length; i++) {
+					System.out.printf("%d번째 문자열 : ", i+1);	//수정
+					strArr2[i] = sc.nextLine();
+				}
+			} else if(answer == 'n' || answer == 'N') {
+				System.out.print("[");
+				for(int i=0; i<strArr.length; i++) {
+					System.out.print(strArr[i]);
+					if(i<strArr.length-1) {
+						System.out.print(", ");
+					}
+				}
+				System.out.print("]");
+			}	break; //?
+		}	
+		
+		 
 	}
 }
