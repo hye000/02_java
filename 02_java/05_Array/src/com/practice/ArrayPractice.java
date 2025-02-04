@@ -19,9 +19,9 @@ public class ArrayPractice {
 //		practice11();
 //		practice12();
 //		practice13();	
-//		practice14();	
-//		practice15();	
-		practice16();
+//		practice14();	*
+		practice15();	
+//		practice16();
 		
 
 	}
@@ -292,7 +292,35 @@ public class ArrayPractice {
 	public static void practice14() {
 		// 로또 번호 자동 생성기 프로그램을 작성하는데 중복 값 없이 오름차순으로 정렬하여 출력하세요.
 		
-		int[] arr = new int[6];
+		// 강사님 풀이
+		
+		int[] lotto;		// 참조변수 : 값 자체를 저장하는 것이 아니라 실제 데이터가 저장된 위치(주소값)을 가지고 있음
+		lotto = new int[6];
+		
+		// 랜덤값으로 대입
+		for(int i=0; i<lotto.length; i++) {
+			lotto[i] = (int)(Math.random()*45+1);
+			// 중복 제거하려면 => 현재 위치[i] 기준으로 이전 위치까지의 데이터와 비교
+			for(int j=0; j<i; j++) {
+				if(lotto[i] == lotto[j]) {
+					//중복되는 값이 있는 경우, i는 현재 위치 j는 이전 위치
+					i--;
+					break;
+				}
+			}
+		}
+		
+		// *배열을 오름차순으로 정렬 메소드 : Arrays.sort(배열명);
+		// => import.java.util.Arrays;
+		Arrays.sort(lotto);
+
+		//출력
+		for(int i=0; i<lotto.length; i++) {
+			System.out.print(lotto[i] + " ");
+		}
+		
+		
+/*		int[] arr = new int[6];
 		int sort = 0;
 		
 		for(int i=0; i<arr.length; i++) {
@@ -309,27 +337,76 @@ public class ArrayPractice {
 		for(int i=0; i<arr.length; i++) {
 			System.out.print(arr[i] + " ");			
 		}
+		*/
+		
 	}
 	
 	public static void practice15() {
 		// 문자열을 입력 받아 문자열에 어떤 문자가 들어갔는지 배열에 저장하고
 		// 문자의 개수와 함께 출력하세요.
 		
+		// 강사님 풀이
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("문자열 : ");
+		String str = sc.next();
+		
+		char[] chArr = new char[str.length()];
+		int idx = 0;	// 배열에서 사용할 인덱스
+		
+		for(int i=0; i<str.length(); i++) {
+			chArr[i] = str.charAt(i);
+			boolean isDup = false;
+			//중복된 문자 제거
+			for(int j=0; j<i; j++) {
+				// 문자열의 i번째 위치의 문자와, 배열의 j번째 위치의 문자 비교
+				if(str.charAt(i) == chArr[j]) {
+					isDup = true;
+					break;
+				}
+			}
+			if(!isDup) {	// if(isDup == false)
+				chArr[idx++] = str.charAt(i);
+			}
+		}
+		
+		//출력
+		System.out.print("문자열에 있는 문자 : ");
+		for(int i=0; i<idx; i++) {
+			System.out.print(chArr[i]);
+			if(i<idx-1) {
+				System.out.print(", ");
+			}
+		}
+		System.out.println("\n문자 개수 : " + idx);
+/*		
 		Scanner sc = new Scanner(System.in);
 		System.out.print("문자열 : ");
 		String str = sc.next();
 		
 		char[] chArr = new char[str.length()];
 		
+		System.out.print("문자열에 있는 문자 : ");
 		for(int i=0; i<chArr.length; i++) {
 			chArr[i] = str.charAt(i);
 			System.out.print(chArr[i]);
 			if(i<chArr.length-1) {
-				System.out.printf("\n문자 개수 : ", chArr.length);
 				System.out.print(", ");
 			}
 		}
 		
+		int count=0;
+		for(int i=0; i<chArr.length; i++) {
+			for(int j=0; j<i; j++) {
+				if(chArr[i] == chArr[j]) {
+					count += 1;
+				}
+			}
+		}
+		System.out.printf("\n문자 개수 : %d", count);
+		
+		*/
 //		for(int i=0; i<chArr.length; i++) {
 //			for(int j=0; j<i; j++) {
 //				if(chArr[i] == chArr[j]) {
@@ -364,7 +441,7 @@ public class ArrayPractice {
 				int num2 = sc.nextInt();
 				sc.nextLine();
 				
-				String[] strArr2 = new String[strArr.length+num2];
+				String[] strArr2 = new String[strArr.length+num2];		//배열복사
 				System.arraycopy(strArr, 0, strArr2, 0, strArr.length);
 				
 				for(int i=strArr.length; i<strArr2.length; i++) {
