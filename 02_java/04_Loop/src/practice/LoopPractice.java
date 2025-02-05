@@ -15,12 +15,13 @@ public class LoopPractice {
 //		practice8();
 //		practice9();
 //		practice10();
-//		**practice11();
-		practice12();
+//		practice11();
+//		practice12();
 //		practice13();
 //		practice14();
+
 	}
-	
+
 	public static void practice1() {
 		// 사용자로부터 한 개의 값을 입력 받아 1부터 그 숫자까지의 숫자들을 모두 출력하세요.
 		// 단, 입력한 수는 1보다 크거나 같아야 합니다.
@@ -236,12 +237,22 @@ public class LoopPractice {
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.print("시작 숫자 : ");
-		int start = sc.nextInt();
+		int num = sc.nextInt();
 		
 		System.out.print("공차 : ");
 		int diff = sc.nextInt();
+		int step = 0;
+		int sum = num;
 		
-		
+		while(true) {
+			if(step < 10) {
+				System.out.print(sum + " ");
+				sum += diff;
+				step ++;
+			} else {
+				break;
+			}
+		}
 	}
 	
 	public static void practice12() {
@@ -251,9 +262,13 @@ public class LoopPractice {
 		int num1;
 		int num2;
 		
-		do {
+		while(true){
 		System.out.print("연산자(+, -, *, /, %) : ");
 		oper = sc.next();
+		if(oper.equals("exit")) {
+			System.out.println("프로그램을 종료합니다.");
+			break;
+		}
 		
 		System.out.print("정수 1 : ");
 		num1 = sc.nextInt();
@@ -262,30 +277,59 @@ public class LoopPractice {
 		num2 = sc.nextInt();
 		
 		switch(oper) {
-		case "+" :
-			System.out.printf("%d %s %d = %d\n",num1, oper, num2, num1 + num2);
-			break;
-			
-		case "-" :
-			System.out.printf("%d %s %d = %d\n",num1, oper, num2, num1-num2);
-			break;
-			
-		case "*" :
-			System.out.printf("%d %s %d = %d\n",num1, oper, num2, num1*num2);
-			break;
-			
-		case "/" :
-			System.out.printf("%d %s %d = %d\n",num1, oper, num2, num1/num2);
-			break;
-			
-		case "%" :
-			System.out.printf("%d %s %d = %d\n",num1, oper, num2, num1%num2);
-			break;	
-			
-			default : 
-				System.out.println("없는 연산자입니다. 다시 입력해주세요.");
+			case "+" :
+				System.out.printf("%d %s %d = %d\n",num1, oper, num2, num1 + num2);
+				break;
+				
+			case "-" :
+				System.out.printf("%d %s %d = %d\n",num1, oper, num2, num1-num2);
+				break;
+				
+			case "*" :
+				System.out.printf("%d %s %d = %d\n",num1, oper, num2, num1*num2);
+				break;
+				
+			case "/" :
+				if(num1 == 0 || num2 == 0) {
+					System.out.println("0으로 나눌 수 없습니다. 다시 입력해주세요.");
+				} else {
+				System.out.printf("%d %s %d = %d\n",num1, oper, num2, num1/num2);
+				}
+				break;
+				
+			case "%" :
+				System.out.printf("%d %s %d = %d\n",num1, oper, num2, num1%num2);
+				break;	
+				
+				default : 
+					System.out.println("없는 연산자입니다. 다시 입력해주세요.");
+			}
 		}
+	}
+	
+	public static void practice13() {
+		Scanner sc = new Scanner(System.in);
 		
-		} while(oper != "exit");
+		System.out.print("정수 입력 : ");
+		int num = sc.nextInt();
+		
+		for(int i = 0; i <= num; i++) {
+			for(int j = 0; j <= i; j++) {
+				System.out.print("*");	
+			}System.out.println();
+		}
+	}
+
+	public static void practice14() {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("정수 입력 : ");
+		int num = sc.nextInt();
+		
+		for(int i=0; i<=num; i++) {
+			for(int j=num; j>i; j--) {
+				System.out.print("*");
+			}System.out.println();
+		}
 	}
 }
