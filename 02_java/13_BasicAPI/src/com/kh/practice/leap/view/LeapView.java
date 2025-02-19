@@ -7,23 +7,20 @@ import com.kh.practice.leap.controller.LeapController;
 
 public class LeapView {
 	private LeapController lc = new LeapController();
-	private Calendar c = Calendar.getInstance();
+
 	
 	public LeapView() {
 
-		LocalDateTime now = LocalDateTime.now();
-		int mon = now.getYear();
-
-		boolean leap = lc.isLeapYear(mon);
-
-		if(leap) {
-			System.out.println(mon + "년은 평년입니다.");
-		}else {
-			System.out.println(mon + "년은 윤년입니다.");
-		}
+		Calendar c = Calendar.getInstance();
+		// 특정 연도에 대하여 설정하고자 할 경우 set메소드 사용
+		// set(필드명, 설정값)
+		// c.set(Calendar.YEAR, 2019);
 		
-		long date = lc.leapDate(c);
-		System.out.println("총 날짜 수 : " + date);
+		int year = c.get(Calendar.YEAR);
+		// 현재 연도 출력
+
+		System.out.printf("%d년은 %s입니다.\n",year, lc.isLeapYear(year)? "윤년": "평년");
+		System.out.printf("총 날짜 수 : %d\n",lc.leapDate(c));
 	}
 
 }
