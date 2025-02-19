@@ -5,48 +5,41 @@ import java.util.Calendar;
 public class LeapController {
 
 	public boolean isLeapYear(int year) {
-		boolean isLeap = false;
-		if(year % 4 == 0 && (year % 100 != 0 || year % 400 ==0)) {
-			isLeap = false;
-		}else {
-			isLeap = true;
-		}
-		return isLeap;
+		return (year % 4 == 0) && (year % 100 != 0 || year % 400 ==0);
 	}
 	
 	public long leapDate(Calendar c) {
-		long days;
 		
-		Calendar now = Calendar.getInstance();	//...?
-		Calendar start = Calendar.getInstance();
+		//1년 1월 1일부터 오늘까지의 총 날 수를 계산
 		
-		now.set(2025, 1, 19);
-		start.set(1, 0, 1);
+		int currYear = c.get(Calendar.YEAR);
+		int currMonth = c.get(Calendar.MONTH);
+		int currDay = c.get(Calendar.DAY_OF_MONTH);
 		
-		long nowDays = now.getTimeInMillis();
-		long startDays = start.getTimeInMillis();
+		long days = 0;
 		
-		days = (nowDays-startDays)/(60*60*1000*24);
-//		Date startDate = new Date(1,0,1);
-//		Date now = new Date(2025,2,19);
-//		
-//		int startYear = startDate.getYear();
-//		int nowYear = now.getYear();
-//		
-//		/* 	  해당 현재 연도가 윤년이면 2월을
-//			  29일로 평년이면 28일로 더함
-//			  월의 날짜 수를 더함			  */
-//		 
-//		long days = 0;
-//		for(int i=startYear; i<nowYear; i++) {
-//			if(i % 4 == 0 && (i % 100 != 0 || i % 400 ==0)) {
-//				days += 366;
-//			}else {
-//				days += 365;
-//			}
-//		}
-//		days += now.getDate();
-//		
+		// 직전 연도까지 구하기
+		// 해당 연도가 윤년이면 +366, 평년이면 +365
+		for(int i=1; i<currYear; i++) {
+			days += isLeapYear(i) ? 366 : 365;
+		}
+		
+		// 현재 연도부터 구하기
+		// 1, 3, 5, 7, 8, 10, 12월인 경우 + 31
+		// 4, 6, 9, 11월인 경우 + 30
+		// 2월인 경우 해당연도가 윤년이면 + 29, 평년이면 + 28
+		for(int i=0; i<currMonth; i++) {
+			switch(i) {
+			case 1 : case 3 : case 5 : case 7 : case 8: case 10: case 12 :
+				days += 31;
+			case 4: case 6: case 9: case 11:
+				days += 30;
+			case 2: days += isLeapYear(i)? 29 : 28; 
+			}
+		}
+		
+		days += currDay;
+
 		return days;
 	}
 }
