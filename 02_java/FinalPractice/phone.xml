@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Phone 정보</comment>
+<entry key="galaxy S7">galaxy S7, 563500, 삼성, 7</entry>
+<entry key="iphone 6s">iphone 6s, 840000, 애플, 3</entry>
+<entry key="G5">G5, 563500, LG, 5</entry>
+</properties>
