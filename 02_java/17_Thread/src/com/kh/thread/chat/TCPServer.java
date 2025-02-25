@@ -8,7 +8,7 @@ public class TCPServer {
 
 	public static void main(String[] args) {
 		// 1) 포트 지정 (IP는 PC에서 지정 됨)
-		int port = 7777;
+		int port = 7979;
 
 		// 2) ServerSocket 객체 생성(포트 번호 포함)
 		try {
@@ -21,10 +21,14 @@ public class TCPServer {
 			// 클라이언트로부터 메시지를 받는 스레드 => ServerReceiver
 			ServerReceiver sr = new ServerReceiver(socket);
 			Thread t1 = new Thread(sr);
+			t1.start();
 			
 			// 클라이언트로 메시지를 보내는 스레드 => ServerSender
 			ServerSender ss = new ServerSender(socket);
-			Thread t2 = new Thread(ss);
+			Thread t2 = new Thread(ss);			
+			t2.start();
+			
+			// Runnable a = () -> { // run 메소드 재정의 };
 			
 		} catch (IOException e) {
 			e.printStackTrace();
